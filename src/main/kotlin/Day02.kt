@@ -5,12 +5,12 @@ class Day02(private val file: String) {
     data class Report(
         val levels: List<Int>,
     ) {
-        private val Pair<Int,Int>.diff get() = first - second
+        private val Pair<Int, Int>.diff get() = first - second
         private val Int.safe get() = absoluteValue <= 3
 
         private fun <T> List<T>.exceptIndex(index: Int) = slice(indices - index)
 
-        val pairs: List<Pair<Int, Int>> by lazy {  levels.zipWithNext() }
+        val pairs: List<Pair<Int, Int>> by lazy { levels.zipWithNext() }
         val diffs: List<Int> by lazy { pairs.map { it.diff } }
 
         val safe: Boolean by lazy {
@@ -32,7 +32,7 @@ class Day02(private val file: String) {
         }
     }
 
-    private fun  loadReports(): List<Report> {
+    private fun loadReports(): List<Report> {
         val lines = file.fileLines()
 
         return lines

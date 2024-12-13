@@ -14,7 +14,7 @@ class Day01(private val file: String) {
         }
     }
 
-    private fun  loadComparison(): ListComparison {
+    private fun loadComparison(): ListComparison {
         val lines = file.fileLines()
 
         val pairs = lines

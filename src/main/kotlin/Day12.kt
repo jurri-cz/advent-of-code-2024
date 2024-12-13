@@ -37,17 +37,17 @@ class Day12(private val file: String) {
         val discountFencePrice
             get() = area * corners
 
-        private fun corner(x: Int, y: Int, dx: Int, dy: Int, plots: Set<Pair<Int, Int>>): Triple<Int,Int,Int>? {
-            val horizontal = plots.contains(x+dx to y)
-            val vertical = plots.contains(x to y+dy)
-            val diagonal = plots.contains(x+dx to y+dy)
+        private fun corner(x: Int, y: Int, dx: Int, dy: Int, plots: Set<Pair<Int, Int>>): Triple<Int, Int, Int>? {
+            val horizontal = plots.contains(x + dx to y)
+            val vertical = plots.contains(x to y + dy)
+            val diagonal = plots.contains(x + dx to y + dy)
 
             val count = listOf(horizontal, vertical, diagonal).count { it }
 
             return if (count == 0 || count == 2) {
-                Triple(2*x + dx, 2*y + dy, 0)
+                Triple(2 * x + dx, 2 * y + dy, 0)
             } else if (count == 1 && diagonal) {
-                Triple(2*x + dx, 2*y + dy, 2*dx + dy)
+                Triple(2 * x + dx, 2 * y + dy, 2 * dx + dy)
             } else {
                 null
             }
@@ -55,17 +55,25 @@ class Day12(private val file: String) {
 
     }
 
-    private fun floodFill(x: Int, y: Int, field: Field, map: List<List<Char>>, xRange: IntRange, yRange: IntRange, toVisit: MutableSet<Pair<Int, Int>>) {
+    private fun floodFill(
+        x: Int,
+        y: Int,
+        field: Field,
+        map: List<List<Char>>,
+        xRange: IntRange,
+        yRange: IntRange,
+        toVisit: MutableSet<Pair<Int, Int>>
+    ) {
         toVisit.remove(x to y)
 
         val crop = field.crop
 
         val neighbors = listOf(
-            (x+1 to y),
-            (x-1 to y),
-            (x to y+1),
-            (x to y-1)
-        ).mapNotNull { it.takeIf { (xn, yn)-> xn in xRange && yn in yRange && map[yn][xn] == crop } }
+            (x + 1 to y),
+            (x - 1 to y),
+            (x to y + 1),
+            (x to y - 1)
+        ).mapNotNull { it.takeIf { (xn, yn) -> xn in xRange && yn in yRange && map[yn][xn] == crop } }
 
         neighbors.forEach { neighbor ->
             if (neighbor in toVisit) {
@@ -102,7 +110,7 @@ class Day12(private val file: String) {
         return fields.toList()
     }
 
-   fun part1(): Int {
+    fun part1(): Int {
         val fields = mapFields()
         return fields.sumOf { it.fencePrice }
     }

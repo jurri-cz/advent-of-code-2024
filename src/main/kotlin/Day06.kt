@@ -29,23 +29,23 @@ class Day06(private val file: String) {
         val to: Pair<Int, Int>,
         val direction: Direction,
     ) {
-        fun exitingMap(boundaries: Pair<Int,Int>): Boolean {
+        fun exitingMap(boundaries: Pair<Int, Int>): Boolean {
             val (maxX, maxY) = boundaries
 
             return when (direction) {
                 Direction.UP -> to.second == 0
-                Direction.DOWN -> to.second == maxY-1
+                Direction.DOWN -> to.second == maxY - 1
                 Direction.LEFT -> to.first == 0
-                Direction.RIGHT -> to.first == maxX-1
+                Direction.RIGHT -> to.first == maxX - 1
             }
         }
 
-        val steps: List<Pair<Int,Int>> by lazy {
+        val steps: List<Pair<Int, Int>> by lazy {
             when (direction) {
                 Direction.UP -> (from.second downTo to.second).map { y -> from.first to y }
                 Direction.DOWN -> (from.second..to.second).map { y -> from.first to y }
-                Direction.LEFT -> (from.first downTo  to.first).map { x -> x to from.second }
-                Direction.RIGHT -> (from.first.. to.first).map { x -> x to from.second }
+                Direction.LEFT -> (from.first downTo to.first).map { x -> x to from.second }
+                Direction.RIGHT -> (from.first..to.first).map { x -> x to from.second }
             }
         }
     }
@@ -55,11 +55,12 @@ class Day06(private val file: String) {
 
         val turnRight: Direction by lazy {
             when (this) {
-            UP -> RIGHT
-            LEFT -> UP
-            DOWN -> LEFT
-            RIGHT -> DOWN
-        } }
+                UP -> RIGHT
+                LEFT -> UP
+                DOWN -> LEFT
+                RIGHT -> DOWN
+            }
+        }
     }
 
     private fun nextPosition(
@@ -74,19 +75,22 @@ class Day06(private val file: String) {
         return when (direction) {
             Direction.UP -> {
                 val nextObstacle = obstaclesByColumn[x]?.lastOrNull { it < y } ?: -1
-                x to nextObstacle+1
+                x to nextObstacle + 1
             }
+
             Direction.DOWN -> {
                 val nextObstacle = obstaclesByColumn[x]?.firstOrNull { it > y } ?: mapDimensions.second
-                x to nextObstacle-1
+                x to nextObstacle - 1
             }
+
             Direction.LEFT -> {
                 val nextObstacle = obstaclesByRow[y]?.lastOrNull { it < x } ?: -1
-                nextObstacle+1 to y
+                nextObstacle + 1 to y
             }
+
             Direction.RIGHT -> {
                 val nextObstacle = obstaclesByRow[y]?.firstOrNull { it > x } ?: mapDimensions.first
-                nextObstacle-1 to y
+                nextObstacle - 1 to y
             }
         }
     }
@@ -174,22 +178,28 @@ class Day06(private val file: String) {
                 }
                 .toSet()
                 .sumOf { obstacle ->
-                        val addedObstaclesByRow = obstaclesByRow.toMutableMap()
-                        addedObstaclesByRow.merge(obstacle.second, sortedSetOf(obstacle.first)) { a, b -> (a + b).toSortedSet() }
+                    val addedObstaclesByRow = obstaclesByRow.toMutableMap()
+                    addedObstaclesByRow.merge(
+                        obstacle.second,
+                        sortedSetOf(obstacle.first)
+                    ) { a, b -> (a + b).toSortedSet() }
 
-                        val addedObstaclesByColumn = obstaclesByColumn.toMutableMap()
-                        addedObstaclesByColumn.merge(obstacle.first, sortedSetOf(obstacle.second)) { a, b -> (a + b).toSortedSet() }
+                    val addedObstaclesByColumn = obstaclesByColumn.toMutableMap()
+                    addedObstaclesByColumn.merge(
+                        obstacle.first,
+                        sortedSetOf(obstacle.second)
+                    ) { a, b -> (a + b).toSortedSet() }
 
-                        walk2(
-                            addObstacle = false,
-                            direction = firstPath.direction,
-                            pathStart = firstPath.from,
-                            previousPaths = emptyList(),
-                            previousPathStarts = emptyList(),
-                            boundaries = boundaries,
-                            obstaclesByRow = addedObstaclesByRow.toMap(),
-                            obstaclesByColumn = addedObstaclesByColumn.toMap()
-                        )
+                    walk2(
+                        addObstacle = false,
+                        direction = firstPath.direction,
+                        pathStart = firstPath.from,
+                        previousPaths = emptyList(),
+                        previousPathStarts = emptyList(),
+                        boundaries = boundaries,
+                        obstaclesByRow = addedObstaclesByRow.toMap(),
+                        obstaclesByColumn = addedObstaclesByColumn.toMap()
+                    )
                 }
         }
 

@@ -85,8 +85,8 @@ class Day04(private val file: String) {
     fun List<List<Char>>.detectShapeCount(shape: List<List<Char?>>): Int {
         var count = 0
 
-        val xIndices = (0 .. this.size - shape.size)
-        val yIndices = (0 .. this[0].size - shape[0].size)
+        val xIndices = (0..this.size - shape.size)
+        val yIndices = (0..this[0].size - shape[0].size)
 
         for (x in xIndices) {
             for (y in yIndices) {

@@ -10,7 +10,7 @@ class Day09(private val file: String) {
             if (isFile && length > 0) {
                 val start = index.toLong()
                 val end = (index + length - 1).toLong()
-                fileId.toLong() * (end*end + end - start*start + start) / 2L
+                fileId.toLong() * (end * end + end - start * start + start) / 2L
             } else {
                 0L
             }

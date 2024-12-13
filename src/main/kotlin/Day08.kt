@@ -16,7 +16,7 @@ class Day08(private val file: String) {
             .filter { it.key != '.' }
 
         val boundaries = map[0].length to map.size
-        fun Pair<Int,Int>.withinBoundaries(): Boolean {
+        fun Pair<Int, Int>.withinBoundaries(): Boolean {
             val (x, y) = this
             val (width, height) = boundaries
             return x in 0..<width && y in 0..<height
@@ -29,7 +29,7 @@ class Day08(private val file: String) {
                 antennas
                     .flatMapIndexed { index, (x, y) ->
                         antennas.slice(antennas.indices - index).map { (x2, y2) ->
-                            2*x - x2 to 2*y - y2
+                            2 * x - x2 to 2 * y - y2
                         }
                     }
                     .filter { point -> point.withinBoundaries() }
@@ -57,7 +57,7 @@ class Day08(private val file: String) {
             .filter { it.key != '.' }
 
         val boundaries = map[0].length to map.size
-        fun Pair<Int,Int>.withinBoundaries(): Boolean {
+        fun Pair<Int, Int>.withinBoundaries(): Boolean {
             val (x, y) = this
             val (width, height) = boundaries
             return x in 0..<width && y in 0..<height
