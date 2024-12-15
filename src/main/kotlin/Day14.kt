@@ -76,7 +76,7 @@ class Day14(private val file: String) {
             val avgX = robots.sumOf { it.position.x } / robots.size
             val avgY = robots.sumOf { it.position.y } / robots.size
 
-            // In the end, detecting an off-center was enough, the tree image was no in the center
+            // In the end, detecting an off-center was enough, the tree image was not in the center
             if ((midWidth - avgX).absoluteValue * (midHeight - avgY).absoluteValue > threshold) {
                 println("Second $second, center: $avgX, $avgY")
 
