@@ -44,7 +44,7 @@ class Day13(private val file: String) {
             val prize = Prize(basePrize.x + dPrize, basePrize.y + dPrize)
 
             val bNumerator = (a.dx*prize.y - a.dy*prize.x)
-            val bDenominator = (a.dx*b.dy-a.dy*b.dx)
+            val bDenominator = (a.dx*b.dy - a.dy*b.dx)
 
             if (bNumerator % bDenominator != 0L) {
                 return@sumOf 0L
