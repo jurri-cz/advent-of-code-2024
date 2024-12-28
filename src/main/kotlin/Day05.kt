@@ -10,7 +10,7 @@ class Day05(private val file: String) {
             }
 
         val prints = lines
-            .slice(rules.size + 1 until lines.size)
+            .drop(rules.size + 1)
             .map { line -> line.split(",").map { it.toInt() } }
 
         return rules to prints
